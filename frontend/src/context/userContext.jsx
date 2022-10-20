@@ -39,6 +39,7 @@ export const UserProvider = ({ children }) => {
         authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     }
+    console.log(baseUrl + url)
     try {
       setLoading(true)
       if (method === 'get') {
@@ -46,7 +47,7 @@ export const UserProvider = ({ children }) => {
         return res.data
       }
       if (method === 'post') {
-        const res = await axios[method](url, body, {
+        const res = await axios[method](baseUrl + url, body, {
           headers: {
             'Content-Type':
               type === 'json' ? 'application/json' : 'multipart/form-data',
@@ -57,9 +58,9 @@ export const UserProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error.response.data)
-      if (error.response.data.message.includes('Session expired')) {
-        logOut()
-      }
+      // if (error.response.data.message.includes('Session expired')) {
+      //   logOut()
+      // }
       toast.error(error.response.data.message)
     } finally {
       setLoading(false)

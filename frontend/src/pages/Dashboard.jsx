@@ -34,7 +34,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const res = await sendRequest('http://localhost:3000/v1/me', 'get')
+      const res = await sendRequest('/me', 'get')
       setUser(res)
       const base64String = await new Buffer.from(res.profilePicture).toString(
         'base64'

@@ -29,7 +29,7 @@ export const UserProvider = ({ children }) => {
   }
 
   const sendRequest = async (url, method, body, type = 'json') => {
-    const baseUrl = 'https://sore-plum-sheath-dress.cyclic.app/v1'
+    const baseUrl = 'https://nine-gaps-production.up.railway.app/'
     const config = {
       headers: {
         'Content-Type':

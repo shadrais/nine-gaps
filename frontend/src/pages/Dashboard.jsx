@@ -6,13 +6,11 @@ import {
   Container,
   Grid,
   Group,
-  Stack,
   Switch,
   Text,
   TextInput,
   Title,
 } from '@mantine/core'
-import axios from 'axios'
 
 import React, { useState } from 'react'
 import { useEffect } from 'react'

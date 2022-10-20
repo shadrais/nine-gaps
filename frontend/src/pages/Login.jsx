@@ -14,6 +14,7 @@ import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import useUserContext from '../context/userContext'
 import { IconBrandFacebook, IconBrandGoogle } from '@tabler/icons'
+import { useEffect } from 'react'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -21,11 +22,16 @@ const Login = () => {
     email: '',
     password: '',
   })
-  const { sendRequest, logIn } = useUserContext()
+  const { sendRequest, logIn, user } = useUserContext()
   const { email, password } = formData
 
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard')
+    }
+  }, [user])
+
   const onChange = (e) => {
-    console.log()
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 

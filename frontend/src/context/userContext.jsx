@@ -10,7 +10,6 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    console.log('useEffect')
     const token = localStorage.getItem('token')
     if (token) {
       setUser(token)
@@ -19,10 +18,9 @@ export const UserProvider = ({ children }) => {
     }
   }, [])
 
-  const logIn = (user) => {
-    console.log('login')
-    localStorage.setItem('token', user.token)
-    setUser(user)
+  const logIn = (users) => {
+    localStorage.setItem('token', users.token)
+    setUser(users)
   }
 
   const logOut = () => {
@@ -39,7 +37,6 @@ export const UserProvider = ({ children }) => {
         authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     }
-    console.log(baseUrl + url)
     try {
       setLoading(true)
       if (method === 'get') {
@@ -57,10 +54,9 @@ export const UserProvider = ({ children }) => {
         return res.data
       }
     } catch (error) {
-      console.log(error.response.data)
-      // if (error.response.data.message.includes('Session expired')) {
-      //   logOut()
-      // }
+      if (error.response.data.message.includes('Session expired')) {
+        logOut()
+      }
       toast.error(error.response.data.message)
     } finally {
       setLoading(false)

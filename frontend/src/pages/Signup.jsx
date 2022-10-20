@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -7,7 +6,6 @@ import {
   Center,
   Title,
   Grid,
-  Input,
   Stack,
   TextInput,
   FileInput,
@@ -24,14 +22,18 @@ const Signup = () => {
     password: '',
     confirmPassword: '',
   })
-  const { sendRequest } = useUserContext()
+  const { sendRequest, user } = useUserContext()
   const [handleImage, setHandleImage] = useState(null)
   const { firstName, lastName, email, password, confirmPassword } = formData
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
-
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard')
+    }
+  }, [user])
   const handleSignup = async () => {
     if (!firstName || !lastName || !email || !password || !confirmPassword) {
       return toast.error('Please fill all the required fields')
@@ -47,9 +49,7 @@ const Signup = () => {
     data.append('password', password)
     data.append('confirmPassword', confirmPassword)
     data.append('profilePicture', handleImage)
-    console.log(data, handleImage)
     const res = await sendRequest('/signup', 'post', data, 'form')
-    console.log(res)
     if (res?.success) {
       localStorage.setItem('token', res.token)
       navigate('/dashboard')

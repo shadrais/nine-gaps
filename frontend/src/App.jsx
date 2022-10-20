@@ -7,6 +7,7 @@ import useUserContext from './context/userContext'
 import Navbar from './components/Navbar'
 import Spinner from './components/Spinner'
 import { useState } from 'react'
+import PrivateRoute from './components/PrivateRoute'
 
 function App() {
   const { loading } = useUserContext()
@@ -30,7 +31,9 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
-            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/dashboard' element={<PrivateRoute />}>
+              <Route path='/dashboard' element={<Dashboard />} />
+            </Route>
           </Routes>
           <Toaster />
         </Router>

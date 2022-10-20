@@ -5,9 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   external: ['Buffer'],
   plugins: [react()],
-  build: {
-    rollupOptions: {
-      plugins: [inject({ Buffer: ['Buffer', 'Buffer'] })],
+  resolve: {
+    alias: {
+      './runtimeConfig': './runtimeConfig.browser',
     },
   },
 })

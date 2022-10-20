@@ -1,16 +1,12 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { viteExternalsPlugin } from 'vite-plugin-externals'
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  external: ['Buffer'],
-  plugins: [react()],
-  resolve: {
-    alias: [
-      {
-        find: './runtimeConfig',
-        replacement: './runtimeConfig.browser',
-      },
-    ],
-  },
-})
+export default {
+  plugins: [
+    viteExternalsPlugin({
+      react: 'React',
+      'react-dom': 'ReactDOM',
+      // value support chain, transform to window['React']['lazy']
+      lazy: ['React', 'lazy'],
+    }),
+  ],
+}

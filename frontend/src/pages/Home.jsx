@@ -12,7 +12,7 @@ const Home = () => {
         transform: 'translate(-50%, -50%)',
       }}>
       <Center>
-        <Title color='white'>Welcome to Nine Gap</Title>
+        <Title>Welcome to Nine Gap</Title>
       </Center>
     </Container>
   )

@@ -6,8 +6,6 @@ const fs = require('fs')
 
 const registerUser = asyncHandler(async (req, res) => {
   const { firstName, lastName, email, password } = req.body
-  console.log('file', req.file)
-  console.log(req.body)
   if (!firstName || !lastName || !email || !password) {
     res.status(400)
     throw new Error('Please provide name, email and password')
@@ -77,10 +75,48 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 })
 
+const updateUserProfile = asyncHandler(async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id)
+    if (user) {
+      user.firstName = req.body?.firstName || user?.firstName
+      user.lastName = req.body?.lastName || user?.lastName
+      if (req.body?.newPassword && req.body?.oldPassword) {
+        const oldPassword = await bcrypt.compare(
+          req.body.oldPassword,
+          user.password
+        )
+        if (oldPassword) {
+          const salt = await bcrypt.genSalt(10)
+          user.password = await bcrypt.hash(req.body.newPassword, salt)
+        } else {
+          res.status(401)
+          throw new Error('Invalid password')
+        }
+      }
+      const updatedUser = await user.save()
+      res.json({
+        _id: updatedUser._id,
+        firstName: updatedUser.firstName,
+        lastName: updatedUser.lastName,
+        email: updatedUser.email,
+        token: generateToken(updatedUser._id),
+        success: true,
+      })
+    } else {
+      res.status(404)
+      throw new Error('User not found')
+    }
+  } catch (error) {
+    res.status(400)
+    throw new Error(error.message)
+  }
+})
+
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: '1d',
   })
 }
 
-module.exports = { registerUser, loginUser, getUserProfile }
+module.exports = { registerUser, loginUser, getUserProfile, updateUserProfile }

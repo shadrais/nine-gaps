@@ -14,6 +14,7 @@ import {
   Button,
 } from '@mantine/core'
 import useUserContext from '../context/userContext'
+import { IconBrandFacebook, IconBrandGoogle } from '@tabler/icons'
 const Signup = () => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
@@ -61,7 +62,7 @@ const Signup = () => {
   }
 
   return (
-    <Container size={400}>
+    <Container size={450}>
       <Stack>
         <Center>
           <Title>Sign Up</Title>
@@ -125,7 +126,26 @@ const Signup = () => {
           accept='image/png,image/jpeg'
         />
         <Button onClick={handleSignup}>Sign up</Button>
-        <Button variant='outline'>Already have an account?</Button>
+        <Button color='red'>
+          <IconBrandGoogle
+            height={18}
+            width={18}
+            style={{ marginRight: '1rem' }}
+          />
+          Continue with Google
+        </Button>
+
+        <Button color='gray'>
+          <IconBrandFacebook
+            height={18}
+            width={18}
+            style={{ marginRight: '1rem' }}
+          />
+          Continue with Facebook
+        </Button>
+        <Button variant='outline' onClick={() => navigate('/login')}>
+          Already have an account?
+        </Button>
       </Stack>
     </Container>
   )

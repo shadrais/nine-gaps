@@ -7,6 +7,7 @@ const {
   registerUser,
   loginUser,
   getUserProfile,
+  updateUserProfile,
 } = require('../controller/userController')
 const multer = require('multer')
 
@@ -33,5 +34,6 @@ const upload = multer({ storage: storage, fileFilter: imageFilter })
 router.post('/signup', upload.single('profilePicture'), registerUser)
 router.post('/login', loginUser)
 router.get('/me', protect, getUserProfile)
+router.post('/update', protect, updateUserProfile)
 
 module.exports = router

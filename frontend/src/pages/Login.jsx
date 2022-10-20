@@ -4,6 +4,7 @@ import {
   Container,
   FileInput,
   Grid,
+  Group,
   Stack,
   TextInput,
   Title,
@@ -12,6 +13,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import useUserContext from '../context/userContext'
+import { IconBrandFacebook, IconBrandGoogle } from '@tabler/icons'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -43,10 +45,10 @@ const Login = () => {
   }
 
   return (
-    <Container size={400}>
+    <Container size={450}>
       <Stack>
         <Center>
-          <Title>Sign Up</Title>
+          <Title>Login</Title>
         </Center>
         <TextInput
           placeholder='Email'
@@ -67,7 +69,28 @@ const Login = () => {
           onChange={onChange}
         />
         <Button onClick={handleLogin}>Login</Button>
-        <Button variant='outline'>Don't have an account?</Button>
+
+        <Button color='red'>
+          <IconBrandGoogle
+            height={18}
+            width={18}
+            style={{ marginRight: '1rem' }}
+          />
+          Continue with Google
+        </Button>
+
+        <Button color='gray'>
+          <IconBrandFacebook
+            height={18}
+            width={18}
+            style={{ marginRight: '1rem' }}
+          />
+          Continue with Facebook
+        </Button>
+
+        <Button onClick={() => navigate('/signup')} variant='outline'>
+          Don't have an account?
+        </Button>
       </Stack>
     </Container>
   )

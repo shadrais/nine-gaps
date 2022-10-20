@@ -1,12 +1,8 @@
-import { viteExternalsPlugin } from 'vite-plugin-externals'
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
-export default {
-  plugins: [
-    viteExternalsPlugin({
-      react: 'React',
-      'react-dom': 'ReactDOM',
-      // value support chain, transform to window['React']['lazy']
-      lazy: ['React', 'lazy'],
-    }),
-  ],
-}
+// https://vitejs.dev/config/
+export default defineConfig({
+  external: ['Buffer'],
+  plugins: [react()],
+})

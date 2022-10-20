@@ -19,6 +19,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import useUserContext from '../context/userContext'
 import { Image } from '@mantine/core'
+import { encode } from 'base64-arraybuffer'
 import toast from 'react-hot-toast'
 
 const Dashboard = () => {
@@ -36,9 +37,10 @@ const Dashboard = () => {
     const getUser = async () => {
       const res = await sendRequest('/me', 'get')
       setUser(res)
-      const base64String = await new Buffer.from(res.profilePicture).toString(
-        'base64'
-      )
+      // const base64String = await new Buffer.from(res.profilePicture).toString(
+      //   'base64'
+      // )
+      const base64String = encode(res.profilePicture.data)
       setImage(base64String)
     }
     getUser()

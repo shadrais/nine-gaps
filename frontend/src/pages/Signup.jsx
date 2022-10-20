@@ -13,6 +13,7 @@ import {
   FileInput,
   Button,
 } from '@mantine/core'
+import useUserContext from '../context/userContext'
 const Signup = () => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
@@ -22,12 +23,11 @@ const Signup = () => {
     password: '',
     confirmPassword: '',
   })
+  const { sendRequest } = useUserContext()
   const [handleImage, setHandleImage] = useState(null)
-  const [loading, setLoading] = useState(false)
   const { firstName, lastName, email, password, confirmPassword } = formData
 
   const onChange = (e) => {
-    console.log()
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
@@ -38,26 +38,25 @@ const Signup = () => {
     if (password !== confirmPassword) {
       return toast.error('Passwords do not match')
     }
-    try {
-      setLoading(true)
-      const data = new FormData()
-      data.append('firstName', firstName)
-      data.append('lastName', lastName)
-      data.append('email', email)
-      data.append('password', password)
-      data.append('confirmPassword', confirmPassword)
-      data.append('profilePicture', handleImage)
-      const res = await axios.post('http://localhost:3000/v1/signup', data)
-      console.log(res)
-      if (res.data.success) {
-        localStorage.setItem('token', res.data.token)
-        navigate('/dashboard')
-      }
-    } catch (error) {
-      console.log(error.response.data)
-      toast.error(error.response.data.message)
-    } finally {
-      setLoading(false)
+
+    const data = new FormData()
+    data.append('firstName', firstName)
+    data.append('lastName', lastName)
+    data.append('email', email)
+    data.append('password', password)
+    data.append('confirmPassword', confirmPassword)
+    data.append('profilePicture', handleImage)
+    console.log(data, handleImage)
+    const res = await sendRequest(
+      'http://localhost:3000/v1/signup',
+      'post',
+      data,
+      'form'
+    )
+    console.log(res)
+    if (res?.success) {
+      localStorage.setItem('token', res.token)
+      navigate('/dashboard')
     }
   }
 
@@ -125,9 +124,7 @@ const Signup = () => {
           onChange={setHandleImage}
           accept='image/png,image/jpeg'
         />
-        <Button onClick={handleSignup} loading={loading}>
-          Sign up
-        </Button>
+        <Button onClick={handleSignup}>Sign up</Button>
         <Button variant='outline'>Already have an account?</Button>
       </Stack>
     </Container>

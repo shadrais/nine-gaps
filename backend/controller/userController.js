@@ -6,7 +6,7 @@ const fs = require('fs')
 
 const registerUser = asyncHandler(async (req, res) => {
   const { firstName, lastName, email, password } = req.body
-  console.log(req.file)
+  console.log('file', req.file)
   console.log(req.body)
   if (!firstName || !lastName || !email || !password) {
     res.status(400)
@@ -69,6 +69,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      profilePicture: user.profilePicture,
     })
   } else {
     res.status(404)

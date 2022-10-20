@@ -3,12 +3,21 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Home, Dashboard, Login, Signup } from './pages'
 import { Toaster } from 'react-hot-toast'
 import './App.css'
+import useUserContext from './context/userContext'
 import Navbar from './components/Navbar'
+import Spinner from './components/Spinner'
 
 function App() {
+  const { loading } = useUserContext()
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
+    <MantineProvider
+      withGlobalStyles
+      withNormalizeCSS
+      theme={{
+        colorScheme: 'dark',
+      }}>
       <Router>
+        {loading && <Spinner />}
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />

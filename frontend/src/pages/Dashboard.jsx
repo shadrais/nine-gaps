@@ -12,7 +12,6 @@ import {
   TextInput,
   Title,
 } from '@mantine/core'
-import { Buffer } from 'buffer'
 import axios from 'axios'
 
 import React, { useState } from 'react'

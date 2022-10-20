@@ -22,14 +22,14 @@ const Login = () => {
     email: '',
     password: '',
   })
-  const { sendRequest, logIn, user } = useUserContext()
+  const { sendRequest, logIn } = useUserContext()
   const { email, password } = formData
 
   useEffect(() => {
-    if (user) {
+    if (localStorage.getItem('token')) {
       navigate('/dashboard')
     }
-  }, [user])
+  }, [])
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })

@@ -30,10 +30,10 @@ const Signup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
   useEffect(() => {
-    if (user) {
+    if (localStorage.getItem('token')) {
       navigate('/dashboard')
     }
-  }, [user])
+  }, [])
   const handleSignup = async () => {
     if (!firstName || !lastName || !email || !password || !confirmPassword) {
       return toast.error('Please fill all the required fields')

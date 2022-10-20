@@ -54,10 +54,15 @@ export const UserProvider = ({ children }) => {
         return res.data
       }
     } catch (error) {
-      if (error.response.data.message.includes('Session expired')) {
+      console.log(error)
+      if (error?.response?.data?.message.includes('Session expired')) {
         logOut()
       }
-      toast.error(error.response.data.message)
+      toast.error(
+        error?.response?.data?.message ||
+          error.message ||
+          'Something went wrong'
+      )
     } finally {
       setLoading(false)
     }

@@ -6,8 +6,11 @@ export default defineConfig({
   external: ['Buffer'],
   plugins: [react()],
   resolve: {
-    alias: {
-      './runtimeConfig': './runtimeConfig.browser',
-    },
+    alias: [
+      {
+        find: './runtimeConfig',
+        replacement: './runtimeConfig.browser',
+      },
+    ],
   },
 })

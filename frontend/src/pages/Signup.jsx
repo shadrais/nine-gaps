@@ -48,12 +48,7 @@ const Signup = () => {
     data.append('confirmPassword', confirmPassword)
     data.append('profilePicture', handleImage)
     console.log(data, handleImage)
-    const res = await sendRequest(
-      'http://localhost:3000/v1/signup',
-      'post',
-      data,
-      'form'
-    )
+    const res = await sendRequest('/signup', 'post', data, 'form')
     console.log(res)
     if (res?.success) {
       localStorage.setItem('token', res.token)

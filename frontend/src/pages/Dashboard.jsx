@@ -89,11 +89,7 @@ const Dashboard = () => {
       }
     })
 
-    const res = await sendRequest(
-      'http://localhost:3000/v1/update',
-      'post',
-      newObj
-    )
+    const res = await sendRequest('/update', 'post', newObj)
     if (res.success) {
       setUser(res)
       setToggle(!toggle)

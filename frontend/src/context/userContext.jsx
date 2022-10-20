@@ -31,6 +31,7 @@ export const UserProvider = ({ children }) => {
   }
 
   const sendRequest = async (url, method, body, type = 'json') => {
+    const baseUrl = 'https://sore-plum-sheath-dress.cyclic.app/v1'
     const config = {
       headers: {
         'Content-Type':
@@ -41,7 +42,7 @@ export const UserProvider = ({ children }) => {
     try {
       setLoading(true)
       if (method === 'get') {
-        const res = await axios.get(url, config)
+        const res = await axios.get(baseUrl + url, config)
         return res.data
       }
       if (method === 'post') {

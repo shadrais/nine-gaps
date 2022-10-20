@@ -33,11 +33,7 @@ const Login = () => {
     if (!email || !password) {
       return toast.error('Please fill all the required fields')
     }
-    const res = await sendRequest(
-      'http://localhost:3000/v1/login',
-      'post',
-      formData
-    )
+    const res = await sendRequest('/login', 'post', formData)
     if (res?.success) {
       logIn(res)
       navigate('/dashboard')

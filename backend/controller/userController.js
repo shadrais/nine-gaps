@@ -23,7 +23,7 @@ const registerUser = asyncHandler(async (req, res) => {
       lastName,
       email,
       password: hashedPassword,
-      profilePicture: fs.readFileSync(req.file.path),
+      profilePicture: req.file && fs.readFileSync(req.file.path),
     })
     if (user) {
       res.status(201).json({
@@ -39,7 +39,7 @@ const registerUser = asyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.status(400)
-    throw new Error('Unable to create user')
+    throw new Error(error.message || 'Invalid user data')
   }
 })
 
@@ -66,7 +66,7 @@ const loginUser = asyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.status(400)
-    throw new Error('Unable to login user')
+    throw new Error(error.message || 'Unable to login user')
   }
 })
 
@@ -88,7 +88,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.status(400)
-    throw new Error('Unable to get user profile')
+    throw new Error(error.message || 'Unable to get user profile')
   }
 })
 
@@ -126,7 +126,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.status(400)
-    throw new Error(error.message)
+    throw new Error(error.message || 'Unable to update user profile')
   }
 })
 

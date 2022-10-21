@@ -29,7 +29,7 @@ export const UserProvider = ({ children }) => {
   }
 
   const sendRequest = async (url, method, body, type = 'json') => {
-    const baseUrl = 'https://nine-gaps-production.up.railway.app/'
+    const baseUrl = 'https://nine-gaps-production.up.railway.app/v1/'
     const config = {
       headers: {
         'Content-Type':

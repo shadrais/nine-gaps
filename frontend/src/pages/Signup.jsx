@@ -49,7 +49,7 @@ const Signup = () => {
     data.append('password', password)
     data.append('confirmPassword', confirmPassword)
     data.append('profilePicture', handleImage)
-    const res = await sendRequest('/signup', 'post', data, 'form')
+    const res = await sendRequest('signup/', 'post', data, 'form')
     if (res?.success) {
       localStorage.setItem('token', res.token)
       navigate('/dashboard')

@@ -22,7 +22,7 @@ const Signup = () => {
     password: '',
     confirmPassword: '',
   })
-  const { sendRequest, user } = useUserContext()
+  const { sendRequest, logIn } = useUserContext()
   const [handleImage, setHandleImage] = useState(null)
   const { firstName, lastName, email, password, confirmPassword } = formData
 
@@ -51,7 +51,7 @@ const Signup = () => {
     data.append('profilePicture', handleImage)
     const res = await sendRequest('signup/', 'post', data, 'form')
     if (res?.success) {
-      localStorage.setItem('token', res.token)
+      logIn(res)
       navigate('/dashboard')
     }
   }

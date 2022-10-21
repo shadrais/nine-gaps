@@ -106,13 +106,15 @@ const Dashboard = () => {
       <Card shadow='sm' radius='md' withBorder>
         <Card.Section p='md'>
           <Center>
-            <Image
-              src={`data:image/png;base64,${image}`}
-              alt='profile image'
-              height={100}
-              width={100}
-              radius='lg'
-            />
+            {user?.profilePicture && (
+              <Image
+                src={`data:image/png;base64,${image}`}
+                alt='profile image'
+                height={100}
+                width={100}
+                radius='lg'
+              />
+            )}
           </Center>
         </Card.Section>
         <Grid gutter={24}>
